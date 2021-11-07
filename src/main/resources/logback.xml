@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <!-- tomcat -->
+    <property name="servletName" value="${project.artifactId}"/>
+    <property name="logs" value="${catalina.base}/logs/${servletName}"/>
+
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logs}/log.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logs}/log-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxHistory>366</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+
+        <encoder>
+            <!--
+                        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-2level %logger{13} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLING-ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logs}/log-error.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logs}/log-%d{yyyy-MM-dd}.%i-error.log</fileNamePattern>
+            <maxHistory>366</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+
+        <encoder>
+            <!--
+                        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            -->
+            <pattern>%d{HH:mm:ss.SSS} %-2level %logger{13} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLLING-WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logs}/log-warn.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logs}/log-%d{yyyy-MM-dd}.%i-warn.log</fileNamePattern>
+            <maxHistory>366</maxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+
+        <encoder>
+            <!--
+                        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            -->
+            <pattern>%d{HH:mm:ss.SSS} %-2level %logger{13} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!--
+                        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-2level %logger{13} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
